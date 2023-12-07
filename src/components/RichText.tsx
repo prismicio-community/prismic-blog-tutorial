@@ -1,9 +1,9 @@
-import { RichTextField } from '@prismicio/client';
-import { JSXMapSerializer, PrismicRichText } from '@prismicio/react';
+import { RichTextField } from "@prismicio/client";
+import { JSXMapSerializer, PrismicRichText } from "@prismicio/react";
 
 export const richTextComponents: JSXMapSerializer = {
   label: ({ node, children }) => {
-    if (node.data.label === 'codespan') {
+    if (node.data.label === "codespan") {
       return <code>{children}</code>;
     }
   },

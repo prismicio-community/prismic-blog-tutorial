@@ -1,15 +1,15 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import { SliceZone } from '@prismicio/react';
-import * as prismic from '@prismicio/client';
+import { SliceZone } from "@prismicio/react";
+import * as prismic from "@prismicio/client";
 
-import { createClient } from '@/prismicio';
-import { components } from '@/slices';
-import { PrismicNextImage } from '@prismicio/next';
-import { PostCard } from '@/components/PostCard';
-import { RichText } from '@/components/RichText';
-import { Navigation } from '@/components/Navigation';
+import { createClient } from "@/prismicio";
+import { components } from "@/slices";
+import { PrismicNextImage } from "@prismicio/next";
+import { PostCard } from "@/components/PostCard";
+import { RichText } from "@/components/RichText";
+import { Navigation } from "@/components/Navigation";
 
 type Params = { uid: string };
 
@@ -24,7 +24,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const client = createClient();
   const page = await client
-    .getByUID('blog_post', params.uid)
+    .getByUID("blog_post", params.uid)
     .catch(() => notFound());
 
   return {
@@ -34,7 +34,7 @@ export async function generateMetadata({
       title: page.data.meta_title || undefined,
       images: [
         {
-          url: page.data.meta_image.url || '',
+          url: page.data.meta_image.url || "",
         },
       ],
     },
@@ -46,7 +46,7 @@ export default async function Page({ params }: { params: Params }) {
 
   // Fetch the current blog post page being displayed by the UID of the page
   const page = await client
-    .getByUID('blog_post', params.uid)
+    .getByUID("blog_post", params.uid)
     .catch(() => notFound());
 
   /**
@@ -54,11 +54,11 @@ export default async function Page({ params }: { params: Params }) {
    *
    * We use this data to display our "recommended posts" section at the end of the blog post
    */
-  const posts = await client.getAllByType('blog_post', {
-    predicates: [prismic.filter.not('my.blog_post.uid', params.uid)],
+  const posts = await client.getAllByType("blog_post", {
+    predicates: [prismic.filter.not("my.blog_post.uid", params.uid)],
     orderings: [
-      { field: 'my.blog_post.publication_date', direction: 'desc' },
-      { field: 'document.first_publication_date', direction: 'desc' },
+      { field: "my.blog_post.publication_date", direction: "desc" },
+      { field: "document.first_publication_date", direction: "desc" },
     ],
     limit: 2,
   });
@@ -76,7 +76,7 @@ export default async function Page({ params }: { params: Params }) {
         <div className="flex flex-col items-center gap-3 w-full">
           <div className="flex flex-col gap-6 items-center">
             <p className="opacity-75 border-b-2 w-min pb-1">
-              {new Date(publication_date || '').toLocaleDateString()}
+              {new Date(publication_date || "").toLocaleDateString()}
             </p>
             <div className="text-center">
               <RichText field={title} />
@@ -86,13 +86,11 @@ export default async function Page({ params }: { params: Params }) {
             <RichText field={description} />
           </div>
         </div>
-        {prismic.isFilled.image(featured_image) ? (
-          <PrismicNextImage
-            field={featured_image}
-            sizes="100vw"
-            className="w-full max-w-3xl max-h-96 rounded-xl object-cover"
-          />
-        ) : null}
+        <PrismicNextImage
+          field={featured_image}
+          sizes="100vw"
+          className="w-full max-w-3xl max-h-96 rounded-xl object-cover"
+        />
       </section>
 
       {/* Display the content of the blog post */}
@@ -117,7 +115,7 @@ export async function generateStaticParams() {
   /**
    * Query all Documents from the API, except the homepage.
    */
-  const pages = await client.getAllByType('blog_post');
+  const pages = await client.getAllByType("blog_post");
 
   /**
    * Define a path for every Document.

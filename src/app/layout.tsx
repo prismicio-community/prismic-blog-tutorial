@@ -1,6 +1,6 @@
-import { PrismicPreview } from '@prismicio/next';
-import { repositoryName } from '@/prismicio';
-import './styles.css';
+import { PrismicPreview } from "@prismicio/next";
+import { repositoryName } from "@/prismicio";
+import "./styles.css";
 
 export default function RootLayout({
   children,

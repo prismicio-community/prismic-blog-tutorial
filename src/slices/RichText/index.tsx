@@ -1,8 +1,8 @@
 // ./src/slices/RichText/index.tsx
 
-import type { Content } from '@prismicio/client';
-import { SliceComponentProps } from '@prismicio/react';
-import { RichText } from '@/components/RichText';
+import type { Content } from "@prismicio/client";
+import { SliceComponentProps } from "@prismicio/react";
+import { RichText } from "@/components/RichText";
 
 type RichTextProps = SliceComponentProps<Content.RichTextSlice>;
 
