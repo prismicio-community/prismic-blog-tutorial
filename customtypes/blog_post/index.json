@@ -50,9 +50,6 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "navigation": {
-              "type": "SharedSlice"
-            },
             "rich_text": {
               "type": "SharedSlice"
             }

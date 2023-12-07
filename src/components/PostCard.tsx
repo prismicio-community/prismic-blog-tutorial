@@ -1,9 +1,7 @@
-import { RichComponents } from '@/slices/RichText';
 import { PrismicNextImage } from '@prismicio/next';
-import { PrismicLink, PrismicRichText } from '@prismicio/react';
-import { Content } from "@prismicio/client";
-import { isFilled } from "@prismicio/client";
-import { PrismicText } from "@prismicio/react";
+import { PrismicLink, PrismicText } from '@prismicio/react';
+import { RichText } from './RichText';
+import { Content, isFilled } from '@prismicio/client';
 
 export const PostCard = ({
   post,
@@ -31,10 +29,10 @@ export const PostCard = ({
             {new Date(data?.publication_date || '').toLocaleDateString()}
           </p>
           <div className="hover:opacity-75 duration-300 ease-in-out transition-all">
-            <h2 className="font-bold text-2xl"><PrismicText field={data.title} /></h2>
+              <h2 className='font-bold text-xl'><PrismicText field={data.title} /></h2>
           </div>
         </div>
-        <PrismicRichText field={data.description} components={RichComponents} />
+        <RichText field={data.description} />
       </div>
       <div className="border-b border-solid border-gray-200 w-full col-span-2" />
     </PrismicLink>

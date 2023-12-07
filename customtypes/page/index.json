@@ -22,46 +22,12 @@
           "single": "heading1"
         }
       },
-      "hero": {
-        "type": "Group",
-        "config": {
-          "label": "Hero",
-          "fields": {
-            "title": {
-              "type": "StructuredText",
-              "config": {
-                "label": "TItle",
-                "placeholder": "",
-                "allowTargetBlank": true,
-                "single": "heading1"
-              }
-            },
-            "description": {
-              "type": "StructuredText",
-              "config": {
-                "label": "Description",
-                "placeholder": "",
-                "allowTargetBlank": true,
-                "single": "paragraph,strong,em"
-              }
-            },
-            "image": {
-              "type": "Image",
-              "config": {
-                "label": "Image",
-                "constraint": {},
-                "thumbnails": []
-              }
-            }
-          }
-        }
-      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "navigation": {
+            "hero": {
               "type": "SharedSlice"
             },
             "rich_text": {

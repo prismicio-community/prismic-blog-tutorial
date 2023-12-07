@@ -4,7 +4,7 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type BlogPostDocumentDataSlicesSlice = NavigationSlice | RichTextSlice;
+type BlogPostDocumentDataSlicesSlice = RichTextSlice;
 
 /**
  * Content for Blog Post documents
@@ -114,41 +114,63 @@ export type BlogPostDocument<Lang extends string = string> =
   >;
 
 /**
- * Item in *Page → Hero*
+ * Item in *Navigation → MenuItems*
  */
-export interface PageDocumentDataHeroItem {
+export interface NavigationDocumentDataMenuitemsItem {
   /**
-   * TItle field in *Page → Hero*
+   * Label field in *Navigation → MenuItems*
    *
-   * - **Field Type**: Title
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: page.hero[].title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **API ID Path**: navigation.menuitems[].label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  title: prismic.TitleField;
+  label: prismic.KeyTextField;
 
   /**
-   * Description field in *Page → Hero*
+   * Link field in *Navigation → MenuItems*
    *
-   * - **Field Type**: Rich Text
+   * - **Field Type**: Link
    * - **Placeholder**: *None*
-   * - **API ID Path**: page.hero[].description
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **API ID Path**: navigation.menuitems[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
-  description: prismic.RichTextField;
-
-  /**
-   * Image field in *Page → Hero*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: page.hero[].image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  image: prismic.ImageField<never>;
+  link: prismic.LinkField;
 }
 
-type PageDocumentDataSlicesSlice = NavigationSlice | RichTextSlice;
+/**
+ * Content for Navigation documents
+ */
+interface NavigationDocumentData {
+  /**
+   * MenuItems field in *Navigation*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navigation.menuitems[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  menuitems: prismic.GroupField<Simplify<NavigationDocumentDataMenuitemsItem>>;
+}
+
+/**
+ * Navigation document from Prismic
+ *
+ * - **API ID**: `navigation`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type NavigationDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<NavigationDocumentData>,
+    "navigation",
+    Lang
+  >;
+
+type PageDocumentDataSlicesSlice = HeroSlice | RichTextSlice;
 
 /**
  * Content for Page documents
@@ -164,17 +186,6 @@ interface PageDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   title: prismic.TitleField;
-
-  /**
-   * Hero field in *Page*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: page.hero[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#group
-   */
-  hero: prismic.GroupField<Simplify<PageDocumentDataHeroItem>>;
 
   /**
    * Slice Zone field in *Page*
@@ -231,62 +242,72 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-export type AllDocumentTypes = BlogPostDocument | PageDocument;
+export type AllDocumentTypes =
+  | BlogPostDocument
+  | NavigationDocument
+  | PageDocument;
 
 /**
- * Primary content in *Navigation → Items*
+ * Primary content in *Hero → Primary*
  */
-export interface NavigationSliceDefaultItem {
+export interface HeroSliceDefaultPrimary {
   /**
-   * Page field in *Navigation → Items*
+   * Title field in *Hero → Primary*
    *
-   * - **Field Type**: Content Relationship
+   * - **Field Type**: Title
    * - **Placeholder**: *None*
-   * - **API ID Path**: navigation.items[].page
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **API ID Path**: hero.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
-  page: prismic.ContentRelationshipField;
+  title: prismic.TitleField;
 
   /**
-   * Label field in *Navigation → Items*
+   * Description field in *Hero → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: navigation.items[].label
+   * - **API ID Path**: hero.primary.description
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
-  label: prismic.RichTextField;
+  description: prismic.RichTextField;
+
+  /**
+   * Image field in *Hero → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
 }
 
 /**
- * Default variation for Navigation Slice
+ * Default variation for Hero Slice
  *
  * - **API ID**: `default`
  * - **Description**: Default
  * - **Documentation**: https://prismic.io/docs/slice
  */
-export type NavigationSliceDefault = prismic.SharedSliceVariation<
+export type HeroSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
-  Simplify<NavigationSliceDefaultItem>
+  Simplify<HeroSliceDefaultPrimary>,
+  never
 >;
 
 /**
- * Slice variation for *Navigation*
+ * Slice variation for *Hero*
  */
-type NavigationSliceVariation = NavigationSliceDefault;
+type HeroSliceVariation = HeroSliceDefault;
 
 /**
- * Navigation Shared Slice
+ * Hero Shared Slice
  *
- * - **API ID**: `navigation`
- * - **Description**: Navigation
+ * - **API ID**: `hero`
+ * - **Description**: Hero
  * - **Documentation**: https://prismic.io/docs/slice
  */
-export type NavigationSlice = prismic.SharedSlice<
-  "navigation",
-  NavigationSliceVariation
->;
+export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
  * Primary content in *RichText → Primary*
@@ -346,15 +367,17 @@ declare module "@prismicio/client" {
       BlogPostDocument,
       BlogPostDocumentData,
       BlogPostDocumentDataSlicesSlice,
+      NavigationDocument,
+      NavigationDocumentData,
+      NavigationDocumentDataMenuitemsItem,
       PageDocument,
       PageDocumentData,
-      PageDocumentDataHeroItem,
       PageDocumentDataSlicesSlice,
       AllDocumentTypes,
-      NavigationSlice,
-      NavigationSliceDefaultItem,
-      NavigationSliceVariation,
-      NavigationSliceDefault,
+      HeroSlice,
+      HeroSliceDefaultPrimary,
+      HeroSliceVariation,
+      HeroSliceDefault,
       RichTextSlice,
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,
