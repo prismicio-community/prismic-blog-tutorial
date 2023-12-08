@@ -20,10 +20,10 @@ export const richTextComponents: JSXMapSerializer = {
   ),
 };
 
-interface IProps {
+interface RichTextProps {
   field: RichTextField;
 }
 
-export const RichText = ({ field }: IProps) => {
+export const RichText = ({ field }: RichTextProps) => {
   return <PrismicRichText field={field} components={richTextComponents} />;
 };
