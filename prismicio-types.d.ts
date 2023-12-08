@@ -114,25 +114,25 @@ export type BlogPostDocument<Lang extends string = string> =
   >;
 
 /**
- * Item in *Navigation → MenuItems*
+ * Item in *Navigation → Menu Items*
  */
-export interface NavigationDocumentDataMenuitemsItem {
+export interface NavigationDocumentDataMenuItemsItem {
   /**
-   * Label field in *Navigation → MenuItems*
+   * Label field in *Navigation → Menu Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: navigation.menuitems[].label
+   * - **API ID Path**: navigation.menu_items[].label
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   label: prismic.KeyTextField;
 
   /**
-   * Link field in *Navigation → MenuItems*
+   * Link field in *Navigation → Menu Items*
    *
    * - **Field Type**: Link
    * - **Placeholder**: *None*
-   * - **API ID Path**: navigation.menuitems[].link
+   * - **API ID Path**: navigation.menu_items[].link
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
   link: prismic.LinkField;
@@ -143,15 +143,15 @@ export interface NavigationDocumentDataMenuitemsItem {
  */
 interface NavigationDocumentData {
   /**
-   * MenuItems field in *Navigation*
+   * Menu Items field in *Navigation*
    *
    * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: navigation.menuitems[]
+   * - **API ID Path**: navigation.menu_items[]
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#group
    */
-  menuitems: prismic.GroupField<Simplify<NavigationDocumentDataMenuitemsItem>>;
+  menu_items: prismic.GroupField<Simplify<NavigationDocumentDataMenuItemsItem>>;
 }
 
 /**
@@ -369,7 +369,7 @@ declare module "@prismicio/client" {
       BlogPostDocumentDataSlicesSlice,
       NavigationDocument,
       NavigationDocumentData,
-      NavigationDocumentDataMenuitemsItem,
+      NavigationDocumentDataMenuItemsItem,
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,

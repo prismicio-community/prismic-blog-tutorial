@@ -3,10 +3,14 @@ import { SliceComponentProps, PrismicText } from "@prismicio/react";
 import { RichText } from "@/components/RichText";
 import { PrismicNextImage } from "@prismicio/next";
 
-//Props for `Hero`.
+/**
+ * Props for `Hero`.
+ */
 export type HeroProps = SliceComponentProps<Content.HeroSlice>;
 
-//Component for "Hero" Slices.
+/**
+ * Component for "Hero" Slices.
+ */
 const Hero = ({ slice }: HeroProps): JSX.Element => {
   return (
     <section
