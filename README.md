@@ -1,5 +1,8 @@
 # Prismic + Next.js Minimal TypeScript Starter
 
+> [!NOTE]
+> This is the finished code for a Prismic blog tutorial. It is archived and no longer updated. To start a new Prismic project with Next.js, see the [Next.js guide](https://prismic.io/docs/nextjs).
+
 Want to quickly get started building your own project with [Prismic][prismic], [Next.js][nextjs], and TypeScript? This project includes basic configurations and nothing else. The project includes one Rich Text Slice, a homepage, and a dynamic page.
 
 - **Demo**: [Open live demo][live-demo]
